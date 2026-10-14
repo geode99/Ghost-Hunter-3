@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Enemy Testing.unity.meta
 guid: ba13a0af678432a409c04ad5ffee2019
+========
+guid: 24ba37e215ffb6a47aa68b8fa5381f0d
+folderAsset: yes
+>>>>>>>> bc3b664ae21e245d5e0609eb204975be97dff95a:Assets/Scripts.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
