@@ -165,41 +165,6 @@ public class Gen : MonoBehaviour
         }
     }
 
-    void CreateWalls()
-    {
-        for (int x = 0; x < grid.GetLength(0) - 1; x++)
-        {
-            for (int y = 0; y < grid.GetLength(1) - 1; y++)
-            {
-                if (grid[x, y] == Grid.Floor)
-                {
-                    if (grid[x + 1, y] == Grid.Empty)
-                    {
-                        wallMap.SetTile(new Vector3Int(x + 1, y, 0), wall);
-                        grid[x + 1, y] = Grid.Wall;
-                    }
-                    if (grid[x - 1, y] == Grid.Empty)
-                    {
-                        wallMap.SetTile(new Vector3Int(x - 1, y, 0), wall);
-                        grid[x - 1, y] = Grid.Wall;
-                    }
-                    if (grid[x, y + 1] == Grid.Empty)
-                    {
-                        wallMap.SetTile(new Vector3Int(x, y + 1, 0), wall);
-                        grid[x, y + 1] = Grid.Wall;
-                    }
-                    if (grid[x, y - 1] == Grid.Empty)
-                    {
-                        wallMap.SetTile(new Vector3Int(x, y - 1, 0), wall);
-                        grid[x, y - 1] = Grid.Wall;
-                    }
-                }
-            }
-        }
-
-        CreateNodes();
-    }
-
     void CreateNodes()
     {
         for (int x = 0; x < grid.GetLength(0); x++)
