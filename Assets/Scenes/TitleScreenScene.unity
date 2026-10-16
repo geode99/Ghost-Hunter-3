@@ -742,6 +742,7 @@ GameObject:
   - component: {fileID: 708643078}
   - component: {fileID: 708643082}
   - component: {fileID: 708643081}
+  - component: {fileID: 708643083}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Untagged
@@ -812,7 +813,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 708643079}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 708643083}
+        m_TargetAssemblyTypeName: StartMenuMethods, Assembly-CSharp
+        m_MethodName: CreditsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &708643079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,6 +990,18 @@ MonoBehaviour:
       type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.ShadowShape2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data:
         m_Cache: []
+--- !u!114 &708643083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708643076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bbcd7b7222d2024487dbe59230b023d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartMenuMethods
 --- !u!1 &771494967
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,6 +1016,7 @@ GameObject:
   - component: {fileID: 771494969}
   - component: {fileID: 771494973}
   - component: {fileID: 771494972}
+  - component: {fileID: 771494974}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -1061,7 +1087,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 771494970}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 771494974}
+        m_TargetAssemblyTypeName: StartMenuMethods, Assembly-CSharp
+        m_MethodName: QuitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &771494970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,6 +1264,18 @@ MonoBehaviour:
       type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.ShadowShape2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data:
         m_Cache: []
+--- !u!114 &771494974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771494967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bbcd7b7222d2024487dbe59230b023d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartMenuMethods
 --- !u!1 &863885471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1788,6 +1838,7 @@ GameObject:
   - component: {fileID: 2096813692}
   - component: {fileID: 2096813691}
   - component: {fileID: 2096813694}
+  - component: {fileID: 2096813695}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1858,7 +1909,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2096813692}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2096813695}
+        m_TargetAssemblyTypeName: StartMenuMethods, Assembly-CSharp
+        m_MethodName: StartButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2096813692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1912,6 +1975,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -8.05}
   m_UseGraphicAlpha: 1
+--- !u!114 &2096813695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096813689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bbcd7b7222d2024487dbe59230b023d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartMenuMethods
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
