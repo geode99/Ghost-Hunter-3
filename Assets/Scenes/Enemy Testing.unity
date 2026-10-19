@@ -456,12 +456,12 @@ MonoBehaviour:
   wallMap: {fileID: 466228427}
   floor: {fileID: 11400000, guid: 3be36d0fd8e5c384e8c1208bec0f0a18, type: 2}
   wall: {fileID: 11400000, guid: 4a18c5a70c3ebdc4daa80e5d8aa5da9c, type: 2}
-  mapWidth: 0
-  mapHeight: 0
+  mapWidth: 30
+  mapHeight: 30
   maxWalkers: 10
   tileCount: 0
   fillPercent: 0.5
-  nodePrefab: {fileID: 0}
+  nodePrefab: {fileID: 1788234082631040598, guid: 693770224dd65d34b927f4e437e21300, type: 3}
   nodeList: []
   npc: {fileID: 0}
 --- !u!4 &1016779625
