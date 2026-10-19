@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,27 +39,25 @@ public class NPC_Controller : MonoBehaviour
             case StateMachine.Patrol:
                 Patrol();
                 break;
-            case StateMachine.Engage:
-                Engage();
+            case StateMachine.Engage: 
+                Engage(); 
                 break;
-            case StateMachine.Evade:
-                Evade();
+            case StateMachine.Evade: 
+                Evade(); 
                 break;
         }
 
         bool playerSeen = Vector2.Distance(transform.position, player.transform.position) < 5.0f;
 
-        if (!playerSeen && currentState != StateMachine.Patrol && curHealth > (maxHealth * 20) / 100)
+        if(!playerSeen && currentState != StateMachine.Patrol && curHealth > (maxHealth * 20) / 100)
         {
             currentState = StateMachine.Patrol;
             path.Clear();
-        }
-        else if (playerSeen && currentState != StateMachine.Engage && curHealth > (maxHealth * 20) / 100)
+        }else if(playerSeen && currentState != StateMachine.Engage && curHealth > (maxHealth * 20) / 100)
         {
             currentState = StateMachine.Engage;
             path.Clear();
-        }
-        else if (currentState != StateMachine.Evade && curHealth <= (maxHealth * 20) / 100)
+        }else if(currentState != StateMachine.Evade && curHealth <= (maxHealth * 20) / 100)
         {
             panicMultiplier = 2;
             currentState = StateMachine.Evade;
@@ -74,7 +69,7 @@ public class NPC_Controller : MonoBehaviour
 
     void Patrol()
     {
-        if (path.Count == 0)
+        if(path.Count == 0)
         {
             path = AStarManager.instance.GeneratePath(currentNode, AStarManager.instance.AllNodes()[Random.Range(0, AStarManager.instance.AllNodes().Length)]);
         }

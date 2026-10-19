@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Gen : MonoBehaviour
+public class RandomWalkerGenerator : MonoBehaviour
 {
     public enum Grid
     {
@@ -33,8 +31,6 @@ public class Gen : MonoBehaviour
     public List<Node> nodeList;
 
     public NPC_Controller npc;
-
-    private bool canDrawGizmos;
 
     private void Awake()
     {
@@ -69,7 +65,7 @@ public class Gen : MonoBehaviour
 
     public Vector2 GetDirection()
     {
-        int choice = Mathf.FloorToInt(Random.value * 3.99f);
+        int choice = Mathf.FloorToInt(UnityEngine.Random.value * 3.99f);
 
         switch (choice)
         {
@@ -165,15 +161,50 @@ public class Gen : MonoBehaviour
         }
     }
 
-    void CreateNodes()
+    void CreateWalls()
     {
-        for (int x = 0; x < grid.GetLength(0); x++)
+        for (int x = 0; x < grid.GetLength(0) - 1; x++)
         {
-            for (int y = 0; y < grid.GetLength(1); y++)
+            for (int y = 0; y < grid.GetLength(1) - 1; y++)
             {
                 if (grid[x, y] == Grid.Floor)
                 {
-                    Node node = Instantiate(nodePrefab, new Vector2(x + 0.5f, y + 0.5f), Quaternion.identity);
+                    if (grid[x + 1, y] == Grid.Empty)
+                    {
+                        wallMap.SetTile(new Vector3Int(x + 1, y, 0), wall);
+                        grid[x + 1, y] = Grid.Wall;
+                    }
+                    if (grid[x - 1, y] == Grid.Empty)
+                    {
+                        wallMap.SetTile(new Vector3Int(x - 1, y, 0), wall);
+                        grid[x - 1, y] = Grid.Wall;
+                    }
+                    if (grid[x, y + 1] == Grid.Empty)
+                    {
+                        wallMap.SetTile(new Vector3Int(x, y + 1, 0), wall);
+                        grid[x, y + 1] = Grid.Wall;
+                    }
+                    if (grid[x, y - 1] == Grid.Empty)
+                    {
+                        wallMap.SetTile(new Vector3Int(x, y - 1, 0), wall);
+                        grid[x, y - 1] = Grid.Wall;
+                    }
+                }
+            }
+        }
+
+        CreateNodes();
+    }
+
+    void CreateNodes()
+    {
+        for(int x = 0; x < grid.GetLength(0); x++)
+        {
+            for(int y = 0; y < grid.GetLength(1); y++)
+            {
+                if (grid[x,y] == Grid.Floor)
+                {
+                    Node node = Instantiate(nodePrefab, new Vector2(x+ 0.5f, y + 0.5f), Quaternion.identity);
                     nodeList.Add(node);
                 }
             }
@@ -183,9 +214,9 @@ public class Gen : MonoBehaviour
 
     void CreateConnections()
     {
-        for (int i = 0; i < nodeList.Count; i++)
+        for(int i = 0; i < nodeList.Count; i++)
         {
-            for (int j = i + 1; j < nodeList.Count; j++)
+            for(int j = i + 1; j < nodeList.Count; j++)
             {
                 if (Vector2.Distance(nodeList[i].transform.position, nodeList[j].transform.position) <= 1.0f)
                 {
@@ -194,13 +225,12 @@ public class Gen : MonoBehaviour
                 }
             }
         }
-        canDrawGizmos = true;
         SpawnAI();
     }
 
     void ConnectNodes(Node from, Node to)
     {
-        if (from == to) { return; }
+        if(from == to) { return; }
 
         from.connections.Add(to);
     }
@@ -214,20 +244,20 @@ public class Gen : MonoBehaviour
         newNPC.currentNode = randNode;
     }
 
-    /*    private void OnDrawGizmos()
+/*    private void OnDrawGizmos()
+    {
+        if (canDrawGizmos)
         {
-            if (canDrawGizmos)
+            Gizmos.color = Color.blue;
+            for(int i =0; i < nodeList.Count; i++)
             {
-                Gizmos.color = Color.blue;
-                for(int i =0; i < nodeList.Count; i++)
+                for(int j = 0; j < nodeList[i].connections.Count; j++)
                 {
-                    for(int j = 0; j < nodeList[i].connections.Count; j++)
-                    {
-                        Gizmos.DrawLine(nodeList[i].transform.position, nodeList[i].connections[j].transform.position);
-                    }
+                    Gizmos.DrawLine(nodeList[i].transform.position, nodeList[i].connections[j].transform.position);
                 }
             }
-        }*/
+        }
+    }*/
 }
 
 public class Walker
