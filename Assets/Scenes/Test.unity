@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 28570602}
   - component: {fileID: 28570601}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1067,8 +1067,8 @@ GameObject:
   - component: {fileID: 381380121}
   - component: {fileID: 381380123}
   m_Layer: 6
-  m_Name: Tilemap (1)
-  m_TagString: Untagged
+  m_Name: Walls
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1809,7 +1809,7 @@ GameObject:
   - component: {fileID: 1398708243}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1830,6 +1830,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
+  bulletPrefab: {fileID: 1157011057000315135, guid: d9c0e92ad12f458439a467fc42458b2f, type: 3}
 --- !u!212 &1398708241
 SpriteRenderer:
   serializedVersion: 3
