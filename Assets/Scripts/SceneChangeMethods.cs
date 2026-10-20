@@ -20,4 +20,9 @@ public class StartMenuMethods : MonoBehaviour
         Debug.Log("Opened Credits!");
         SceneManager.LoadScene("Credits");
     }
+    public void TitleButton()
+    {
+        Debug.Log("Opened Title!");
+        SceneManager.LoadScene("TitleScreenScene");
+    }
 }
