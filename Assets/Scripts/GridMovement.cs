@@ -10,7 +10,7 @@ public class GridMovement : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform aimPivot;
 
-    [Header("2-Frame Animation & Flipping")]
+    [Header("2-Frame Animation")]
     public SpriteRenderer spriteRenderer; // Drag your SpriteRenderer here
     public Sprite idleSprite;             // Drag your Idle frame here
     public Sprite walkSprite;             // Drag your Walk frame here
@@ -23,25 +23,39 @@ public class GridMovement : MonoBehaviour
 
     void Update()
     {
-        // 1. Mouse Aiming & Horizontal Sprite Flipping
+        // 1. Mouse Aiming & Full Transform Flipping (Flips Character + Weapon)
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 lookDir = ((Vector2)mousePos - (Vector2)transform.position).normalized;
 
-        // Flip sprite based on mouse X position relative to the player
-        if (spriteRenderer != null)
+        // Flip the entire gameobject scale based on mouse X position relative to the player
+        Vector3 currentScale = transform.localScale;
+        if (mousePos.x < transform.position.x)
         {
-            if (mousePos.x < transform.position.x)
-                spriteRenderer.flipX = true;  // Face Left
-            else if (mousePos.x > transform.position.x)
-                spriteRenderer.flipX = false; // Face Right
+            // Face Left: Force X scale negative, keeping Y and Z original
+            transform.localScale = new Vector3(-Mathf.Abs(currentScale.x), currentScale.y, currentScale.z);
+        }
+        else if (mousePos.x > transform.position.x)
+        {
+            // Face Right: Force X scale positive, keeping Y and Z original
+            transform.localScale = new Vector3(Mathf.Abs(currentScale.x), currentScale.y, currentScale.z);
         }
 
         // Snap smooth mouse direction to 8-way vector steps via math
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         float snappedAngle = Mathf.Floor(((angle < 0 ? angle + 360 : angle) + 22.5f) / 45f) * 45f;
-        aimDir = new Vector2(Mathf.Cos(snappedAngle * Mathf.Deg2Rad), Mathf.Sin(snappedAngle * Mathf.Deg2Rad));
 
-        if (aimPivot) aimPivot.rotation = Quaternion.Euler(0, 0, snappedAngle);
+        // CORRECTION FOR INVERTED LOCAL SPACE: If flipped left, we adjust the gun rotation angle so it aims correctly
+        if (transform.localScale.x < 0)
+        {
+            snappedAngle = 180f - snappedAngle;
+        }
+
+        aimDir = new Vector2(Mathf.Cos(Mathf.Atan2(lookDir.y, lookDir.x)), Mathf.Sin(Mathf.Atan2(lookDir.y, lookDir.x))).normalized;
+        // Snap the true world vector for bullet physics to 8 directions
+        float worldSnapAngle = Mathf.Floor(((Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg < 0 ? Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg + 360 : Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg) + 22.5f) / 45f) * 45f;
+        aimDir = new Vector2(Mathf.Cos(worldSnapAngle * Mathf.Deg2Rad), Mathf.Sin(worldSnapAngle * Mathf.Deg2Rad));
+
+        if (aimPivot) aimPivot.localRotation = Quaternion.Euler(0, 0, snappedAngle);
 
         // 2. 4-Directional Grid Movement
         if (!isMoving)
