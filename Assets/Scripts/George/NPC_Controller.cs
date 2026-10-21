@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-
 
 public class NPC_Controller : MonoBehaviour
 {
@@ -20,16 +18,16 @@ public class NPC_Controller : MonoBehaviour
         Engage,
         Evade
     }
-
+    
     public StateMachine currentState;
 
-    public PlayerController player;
-
+    public GridMovement player;
     public float speed = 3f;
 
     private void Start()
     {
         curHealth = maxHealth;
+        player = FindAnyObjectByType<GridMovement>();
     }
 
     private void Update()
