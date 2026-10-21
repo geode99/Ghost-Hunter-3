@@ -1,83 +1,71 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GridMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    [Tooltip("Select the layer used for walls and obstacles.")]
     public LayerMask obstacleLayer;
+    [Header("Shooting")]
+    public GameObject bulletPrefab;
+    public Transform aimPivot;
 
-    private bool isMoving = false;
-    private Vector2 origPos, targetPos;
-    private InputAction moveAction;
-
-    void Awake()
-    {
-        moveAction = new InputAction("Move", binding: "<Gamepad>/dpad");
-        moveAction.AddCompositeBinding("2DVector")
-            .With("Up", "<Keyboard>/w")
-            .With("Up", "<Keyboard>/upArrow")
-            .With("Down", "<Keyboard>/s")
-            .With("Down", "<Keyboard>/downArrow")
-            .With("Left", "<Keyboard>/a")
-            .With("Left", "<Keyboard>/leftArrow")
-            .With("Right", "<Keyboard>/d")
-            .With("Right", "<Keyboard>/rightArrow");
-    }
-
-    void OnEnable() => moveAction.Enable();
-    void OnDisable() => moveAction.Disable();
+    private bool isMoving;
+    private Vector2 aimDir = Vector2.down;
 
     void Update()
     {
+        // 1. 8-Directional Aiming Input (Mouse World Position conversion)
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 lookDir = ((Vector2)mousePos - (Vector2)transform.position).normalized;
+
+        // Snap smooth mouse direction to 8-way vector steps via math
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+        float snappedAngle = Mathf.Floor(((angle < 0 ? angle + 360 : angle) + 22.5f) / 45f) * 45f;
+        aimDir = new Vector2(Mathf.Cos(snappedAngle * Mathf.Deg2Rad), Mathf.Sin(snappedAngle * Mathf.Deg2Rad));
+
+        if (aimPivot) aimPivot.rotation = Quaternion.Euler(0, 0, snappedAngle);
+
+        // 2. 4-Directional Grid Movement
         if (!isMoving)
         {
-            Vector2 input = moveAction.ReadValue<Vector2>();
+            float x = Input.GetAxisRaw("Horizontal"), y = Input.GetAxisRaw("Vertical");
+            Vector2 input = x != 0 ? new Vector2(x, 0) : new Vector2(0, y); // Enforce 4-way axis lock
 
-            if (input.x != 0) input.y = 0; // Prevent diagonal movement
-
-            if (input.x != 0 || input.y != 0)
-            {
-                Vector3 direction = new Vector3(Mathf.RoundToInt(input.x), Mathf.RoundToInt(input.y), 0);
-
-                // Calculate where the player wants to go
-                Vector2 checkTarget = (Vector2)transform.position + (Vector2)direction;
-
-                // Check if the target tile contains an obstacle before starting movement
-                if (IsTileWalkable(checkTarget))
-                {
-                    StartCoroutine(MovePlayer(direction));
-                }
-            }
+            if (input != Vector2.zero && !Physics2D.OverlapCircle((Vector2)transform.position + input, 0.2f, obstacleLayer))
+                StartCoroutine(MovePlayer(input));
         }
+
+        // 3. Fire Weapon Command
+        if (Input.GetKeyDown(KeyCode.Space)) Shoot();
     }
 
-    bool IsTileWalkable(Vector2 targetPos)
-    {
-        // Cast a tiny circle at the target position to see if it hits the obstacle layer
-        // A radius of 0.2f ensures it checks only the center area of the next tile
-        return !Physics2D.OverlapCircle(targetPos, 0.2f, obstacleLayer);
-    }
-
-    IEnumerator MovePlayer(Vector3 direction)
+    IEnumerator MovePlayer(Vector2 dir)
     {
         isMoving = true;
+        Vector3 start = transform.position, target = start + (Vector3)dir;
+        float t = 0, duration = 1f / moveSpeed;
 
-        origPos = transform.position;
-        targetPos = (Vector2)transform.position + (Vector2)direction;
-
-        float elapsedTime = 0;
-        float timeToMove = 1f / moveSpeed;
-
-        while (elapsedTime < timeToMove)
+        while (t < duration)
         {
-            transform.position = Vector3.Lerp(origPos, targetPos, elapsedTime / timeToMove);
-            elapsedTime += Time.deltaTime;
+            transform.position = Vector3.Lerp(start, target, t / duration);
+            t += Time.deltaTime;
             yield return null;
         }
-
-        transform.position = targetPos;
+        transform.position = target;
         isMoving = false;
+    }
+
+    void Shoot()
+    {
+        if (!bulletPrefab) return;
+        GameObject b = Instantiate(bulletPrefab, transform.position + (Vector3)aimDir * 0.6f, Quaternion.identity);
+
+        // Safer universal script check that won't throw errors regardless of class capitalization
+        Component bScript = b.GetComponent("Bullet") ?? b.GetComponent("bullet");
+        if (bScript != null)
+        {
+            var f = bScript.GetType().GetField("direction") ?? bScript.GetType().GetField("moveDir");
+            if (f != null) f.SetValue(bScript, aimDir);
+        }
     }
 }
