@@ -433,6 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1016779625}
   - component: {fileID: 1016779624}
+  - component: {fileID: 1016779626}
   m_Layer: 0
   m_Name: RandomWalkerGenerator
   m_TagString: Untagged
@@ -463,7 +464,7 @@ MonoBehaviour:
   fillPercent: 0.5
   nodePrefab: {fileID: 1788234082631040598, guid: 693770224dd65d34b927f4e437e21300, type: 3}
   nodeList: []
-  npc: {fileID: 0}
+  npc: {fileID: 6283103411523399063, guid: 64c24d818f8062f43998f3d917904b1a, type: 3}
 --- !u!4 &1016779625
 Transform:
   m_ObjectHideFlags: 0
@@ -479,6 +480,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1016779626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016779623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d1091fd7e40e374e93e1e92b8e61046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AStarManager
 --- !u!1 &1784907333
 GameObject:
   m_ObjectHideFlags: 0
