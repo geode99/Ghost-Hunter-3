@@ -4,80 +4,64 @@ using UnityEngine.InputSystem;
 
 public class GridMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    [Tooltip("Select the layer used for walls and obstacles.")]
-    public LayerMask obstacleLayer;
-
-    private bool isMoving = false;
-    private Vector2 origPos, targetPos;
-    private InputAction moveAction;
-
-    void Awake()
+    [Header("Movement Settings")]
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private LayerMask obstacleLayer;
+    [Header("Input System Setup")]
+    [SerializeField] private InputActionReference moveAction;
+    private bool isMoving;
+    private void OnEnable()
     {
-        moveAction = new InputAction("Move", binding: "<Gamepad>/dpad");
-        moveAction.AddCompositeBinding("2DVector")
-            .With("Up", "<Keyboard>/w")
-            .With("Up", "<Keyboard>/upArrow")
-            .With("Down", "<Keyboard>/s")
-            .With("Down", "<Keyboard>/downArrow")
-            .With("Left", "<Keyboard>/a")
-            .With("Left", "<Keyboard>/leftArrow")
-            .With("Right", "<Keyboard>/d")
-            .With("Right", "<Keyboard>/rightArrow");
+        moveAction.action.Enable();
+
+        moveAction.action.performed += ProcessGridInput;
     }
-
-    void OnEnable() => moveAction.Enable();
-    void OnDisable() => moveAction.Disable();
-
-    void Update()
+    private void OnDisable()
     {
-        if (!isMoving)
-        {
-            Vector2 input = moveAction.ReadValue<Vector2>();
-
-            if (input.x != 0) input.y = 0; // Prevent diagonal movement
-
-            if (input.x != 0 || input.y != 0)
-            {
-                Vector3 direction = new Vector3(Mathf.RoundToInt(input.x), Mathf.RoundToInt(input.y), 0);
-
-                // Calculate where the player wants to go
-                Vector2 checkTarget = (Vector2)transform.position + (Vector2)direction;
-
-                // Check if the target tile contains an obstacle before starting movement
-                if (IsTileWalkable(checkTarget))
-                {
-                    StartCoroutine(MovePlayer(direction));
-                }
-            }
-        }
+        moveAction.action.Disable();
+        moveAction.action.performed -= ProcessGridInput;
     }
-
-    bool IsTileWalkable(Vector2 targetPos)
+    public void ProcessGridInput(InputAction.CallbackContext context)
     {
-        // Cast a tiny circle at the target position to see if it hits the obstacle layer
-        // A radius of 0.2f ensures it checks only the center area of the next tile
-        return !Physics2D.OverlapCircle(targetPos, 0.2f, obstacleLayer);
+        if (isMoving) return;
+        StartCoroutine(ContinuousMovementLoop());
     }
-
-    IEnumerator MovePlayer(Vector3 direction)
+    private IEnumerator ContinuousMovementLoop()
     {
         isMoving = true;
-
-        origPos = transform.position;
-        targetPos = (Vector2)transform.position + (Vector2)direction;
-
-        float elapsedTime = 0;
-        float timeToMove = 1f / moveSpeed;
-
-        while (elapsedTime < timeToMove)
+        while (moveAction.action.IsPressed())
         {
-            transform.position = Vector3.Lerp(origPos, targetPos, elapsedTime / timeToMove);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            Vector2 inputVector = moveAction.action.ReadValue<Vector2>();
+            float horizontal = Mathf.Round(inputVector.x);
+            float vertical = Mathf.Round(inputVector.y);
+            if (horizontal != 0) vertical = 0;
+            Vector2 direction = new Vector2(horizontal, vertical);
+            if (direction != Vector2.zero)
+            {
+                Vector2 origPos = transform.position;
+                Vector2 targetPos = origPos + direction;
+                if (!Physics2D.Raycast(origPos, direction, 1f, obstacleLayer))
+                {
+                    float elapsed = 0f;
+                    while (elapsed < 1f)
+                    {
+                        transform.position = Vector3.MoveTowards(origPos, targetPos, elapsed);
+                        elapsed += Time.deltaTime * moveSpeed;
+                        yield return null;
+                    }
+                    transform.position = targetPos;
+                }
+                else
+                {
+                    yield return null;
+                }
+            }
+            else
+            {
+                yield return null;
+            }
         }
 
-        transform.position = targetPos;
         isMoving = false;
     }
 }
