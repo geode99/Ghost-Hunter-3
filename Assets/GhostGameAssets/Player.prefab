@@ -111,12 +111,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
-  bulletPrefab: {fileID: 1157011057000315135, guid: d9c0e92ad12f458439a467fc42458b2f, type: 3}
-  aimPivot: {fileID: 398702210485266732}
-  spriteRenderer: {fileID: 5401814663628288547}
-  idleSprite: {fileID: -7404463762209535718, guid: 119b7afda02ed9d4c8ba87bfaf7a18cb, type: 3}
-  walkSprite: {fileID: -1858768983445641216, guid: 289e7e75fe976ac4faf3e74655c1a53f, type: 3}
-  animationFrameRate: 0.15
+  moveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &6343100437703087988
 GameObject:
   m_ObjectHideFlags: 0
