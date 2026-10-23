@@ -14,6 +14,6 @@ public class followMouse : MonoBehaviour
     {
         Vector3 MousePOS = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector2 Direction = MousePOS - transform.position;
-        transform.right = Direction;
+        transform.up = Direction;
     }
 }
