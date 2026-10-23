@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 273ab897e28a35c49bf5c13b8c02cf66
+guid: 3c88bd6be8954b14b87432d8f4926e2c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Jacquard 24
+  - Rubik Iso
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
