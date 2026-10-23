@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eecd073fbe0952642a0c57233c18ae3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScrollinBackground
-  speed: 0.15
+  speed: 0.05
   bgRenderer: {fileID: 601939183}
 --- !u!23 &601939183
 MeshRenderer:
@@ -684,6 +684,10 @@ PrefabInstance:
     - target: {fileID: 398702210485266732, guid: e39daa9b191bb724485f7c200e6a5c91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546818739206128948, guid: e39daa9b191bb724485f7c200e6a5c91, type: 3}
+      propertyPath: moveSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5585308723774843108, guid: e39daa9b191bb724485f7c200e6a5c91, type: 3}
       propertyPath: m_Name
