@@ -9,14 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScreenScene.unity
     guid: 7d2497a59b1166b40b1cbd1ac491e160
   - enabled: 1
+    path: Assets/Scenes/Enemy Testing.unity
+    guid: ba13a0af678432a409c04ad5ffee2019
+  - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 61c509b847dc217448a6cdaf2cdfcb08
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 0400d9f1b0377d549bdd44562ff11f8a
-  - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
