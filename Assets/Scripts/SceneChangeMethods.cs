@@ -6,7 +6,7 @@ public class StartMenuMethods : MonoBehaviour
     public void StartButton()
     {
         Debug.Log("Started the game!");
-        SceneManager.LoadScene("platformahscene");
+        SceneManager.LoadScene("Enemy Testing");
     }
 
     public void QuitButton()
