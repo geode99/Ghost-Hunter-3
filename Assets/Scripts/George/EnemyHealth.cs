@@ -15,7 +15,7 @@ public class EnemyHealth : MonoBehaviour
     void Update()
     {
         if (Health <= 0) {
-            SC.Score += 5;
+            SC.coinCount += 5;
             Destroy(gameObject);
         }
     }

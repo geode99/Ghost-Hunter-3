@@ -7,9 +7,9 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        
+           
     }
-    private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = -transform.right * speed;
@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyHealth>().Health;
+            other.gameObject.GetComponent<EnemyHealth>().Health--;
             Destroy(gameObject);
         }
     }
