@@ -3,11 +3,8 @@ using UnityEngine.InputSystem;
 
 public class Shooting : MonoBehaviour
 {
-
-    public float speed;
-    public float recoil;
+    public GameObject firePoint;
     public GameObject bullet;
-    public float lifetime;
 
     public void Shoot(InputAction.CallbackContext ctx)
     {
@@ -15,11 +12,7 @@ public class Shooting : MonoBehaviour
         {
 
 
-            GameObject bulletInstance = Instantiate(bullet, transform.position, transform.rotation);
-
-            bulletInstance.GetComponent<Rigidbody2D>().linearVelocity = -transform.up * speed;
-            transform.parent.parent.GetComponent<Rigidbody2D>().linearVelocity = transform.up * recoil;
-            Destroy(bulletInstance, lifetime);
+            GameObject bulletInstance = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
         }
     }
 }
