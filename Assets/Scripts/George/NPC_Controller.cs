@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class NPC_Controller : MonoBehaviour
@@ -45,7 +44,7 @@ public class NPC_Controller : MonoBehaviour
                 break;
         }
 
-        bool playerSeen = Vector2.Distance(transform.position, player.transform.position) < 5.0f;
+        bool playerSeen = Vector2.Distance(transform.position, player.transform.position) < 15.0f;
 
         if(!playerSeen && currentState != StateMachine.Patrol && curHealth > (maxHealth * 20) / 100)
         {
