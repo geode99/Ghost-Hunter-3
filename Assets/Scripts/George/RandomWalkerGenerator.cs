@@ -29,8 +29,8 @@ public class RandomWalkerGenerator : MonoBehaviour
 
     public Node nodePrefab;
     public List<Node> nodeList;
-
-    public NPC_Controller npc;
+    private bool firstGen = true;
+    public GameObject player;
 
     private void Awake()
     {
@@ -209,15 +209,22 @@ public class RandomWalkerGenerator : MonoBehaviour
                 }
             }
         }
+        player.transform.position = FindAnyObjectByType<Node>().gameObject.transform.position;
         CreateConnections();
     }
 
-    void CreateConnections()
+    public void CreateConnections()
     {
-        for(int i = 0; i < nodeList.Count; i++)
+        for (int i = 0; i < nodeList.Count; i++) {
+            nodeList[i].connections.Clear();
+        }
+
+        for (int i = 0; i < nodeList.Count; i++)
         {
+
             for(int j = i + 1; j < nodeList.Count; j++)
             {
+                
                 if (Vector2.Distance(nodeList[i].transform.position, nodeList[j].transform.position) <= 1.0f)
                 {
                     ConnectNodes(nodeList[i], nodeList[j]);
@@ -225,23 +232,18 @@ public class RandomWalkerGenerator : MonoBehaviour
                 }
             }
         }
-        SpawnAI();
-    }
+        if (firstGen)
+        {
+            FindAnyObjectByType<EnemySpawner>().CanStart = true;
+            firstGen = false;
+        }
+        }
 
     void ConnectNodes(Node from, Node to)
     {
         if(from == to) { return; }
 
         from.connections.Add(to);
-    }
-
-    void SpawnAI()
-    {
-        Node randNode = nodeList[Random.Range(0, nodeList.Count)];
-
-        NPC_Controller newNPC = Instantiate(npc, randNode.transform.position, Quaternion.identity);
-
-        newNPC.currentNode = randNode;
     }
 
 /*    private void OnDrawGizmos()

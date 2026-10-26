@@ -9,7 +9,12 @@ public class GridMovement : MonoBehaviour
     [SerializeField] private LayerMask obstacleLayer;
     [Header("Input System Setup")]
     [SerializeField] private InputActionReference moveAction;
+    public Animator anim;
     private bool isMoving;
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     private void OnEnable()
     {
         moveAction.action.Enable();
@@ -25,6 +30,10 @@ public class GridMovement : MonoBehaviour
     {
         if (isMoving) return;
         StartCoroutine(ContinuousMovementLoop());
+    }
+    private void Update()
+    {
+        anim.SetBool("isMoving", isMoving);
     }
     private IEnumerator ContinuousMovementLoop()
     {

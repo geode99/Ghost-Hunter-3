@@ -3,11 +3,16 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 10f;
-    public Vector2 direction;
+    public Rigidbody2D rb;
 
     void Update()
     {
-        transform.position += (Vector3)(direction * speed * Time.deltaTime);
+           
+    }
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = transform.up * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -19,7 +24,7 @@ public class Bullet : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<EnemyHealth>().Health--;
             Destroy(gameObject);
         }
     }
