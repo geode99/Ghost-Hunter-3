@@ -10,9 +10,11 @@ public class EnemyBullet : MonoBehaviour
     {
         player = FindAnyObjectByType<GridMovement>().gameObject;
 
-        float angle = Vector3.Angle(transform.position, player.transform.position);
-        Vector2 velocity = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.right;
-        rb.linearVelocity = velocity * speed;
+        Vector3 heading = player.transform.position - transform.position;
+
+        // 2. Normalize it to get a pure direction vector (length of 1)
+        Vector3 direction = heading.normalized;
+        rb.linearVelocity = direction * speed;
 
     }
 
@@ -20,5 +22,11 @@ public class EnemyBullet : MonoBehaviour
     void Update()
     {
         
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Wall")) {
+            Destroy(gameObject);
+        }
     }
 }

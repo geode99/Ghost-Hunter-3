@@ -39,7 +39,7 @@ public class NPC_Controller : MonoBehaviour
         {
 
             currentNode = FindAnyObjectByType<Node>();
-            gameObject.transform.position = currentNode.transform.position;
+            transform.position = currentNode.transform.position;
         }
         else {
             BC2d.enabled = true;

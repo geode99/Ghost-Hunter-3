@@ -14,7 +14,8 @@ public class EnemyShooting : MonoBehaviour
     void Update()
     {
         if (cooldown < 0) {
-            Instantiate(bullet, transform);
+            Instantiate(bullet, transform.position, Quaternion.identity);
+            cooldown = 2;
         }
         cooldown -= Time.deltaTime;
     }

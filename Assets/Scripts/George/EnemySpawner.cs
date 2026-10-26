@@ -6,6 +6,8 @@ public class EnemySpawner : MonoBehaviour
 {
     public int Rounds = 0;
     public NPC_Controller npc;   
+    public NPC_Controller npc_Ranged; // Assign this in the Inspector
+    public NPC_Controller npc_Tank; // Assign this in the Inspector
     public bool CanStart;
 
     [Header("UI")]
@@ -37,12 +39,16 @@ public class EnemySpawner : MonoBehaviour
 
 
 
-
-            if (Random.Range(0, 4) == 4 && Rounds > 20)
+            var rand = Random.Range(0, 4);
+            if (rand == 2 && Rounds >= 20)
             {
                 newNPC = Instantiate(npc_Ranged, randNode.transform.position, Quaternion.identity);
             }
-            else {
+            else if (rand == 1 && Rounds >= 10) {
+                newNPC = Instantiate(npc_Tank, randNode.transform.position, Quaternion.identity);
+            }
+            else
+            {
                 newNPC = Instantiate(npc, randNode.transform.position, Quaternion.identity);
             }
 

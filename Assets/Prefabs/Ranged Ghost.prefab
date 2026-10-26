@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3010162662086294890, guid: 64c24d818f8062f43998f3d917904b1a, type: 3}
       propertyPath: Health
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8864338983267984614, guid: 64c24d818f8062f43998f3d917904b1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -93,5 +93,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aa5a95e72dc3e459e3f7b61faee522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooting
-  cooldown: 10
+  cooldown: 2
   bullet: {fileID: 1647333226751115716, guid: 43da16917afd5a34da57d1234ac03234, type: 3}

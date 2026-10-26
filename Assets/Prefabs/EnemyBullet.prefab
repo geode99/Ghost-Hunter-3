@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7732788165248789241}
   - component: {fileID: 6797284368126065612}
   - component: {fileID: 8020625577962318597}
+  - component: {fileID: 5590553947628887457}
   m_Layer: 0
   m_Name: EnemyBullet
   m_TagString: Enemy
@@ -149,7 +150,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647333226751115716}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -181,5 +182,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBullet
   player: {fileID: 0}
-  rb: {fileID: 0}
-  speed: 5
+  rb: {fileID: 6797284368126065612}
+  speed: 10
+--- !u!114 &5590553947628887457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647333226751115716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504ef221a6251864ea8a1cb749b1d46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  Health: 6
+  SC: {fileID: 0}
