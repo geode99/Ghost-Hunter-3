@@ -46,5 +46,10 @@ public class EnemySpawner : MonoBehaviour
         {
             waveText.text = $"Wave: {Rounds}";
         }
+
+        foreach (Grave grave in FindObjectsByType<Grave>())
+        {
+            PopupManager.instance.Popup("+5", grave.transform);
+        }
     }
 }
