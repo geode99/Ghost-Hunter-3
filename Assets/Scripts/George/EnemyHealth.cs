@@ -8,7 +8,7 @@ public class EnemyHealth : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        SC = FindAnyObjectByType<ScoreManager>();
     }
 
     // Update is called once per frame
