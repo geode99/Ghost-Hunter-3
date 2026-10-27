@@ -114,6 +114,8 @@ MonoBehaviour:
   maxHealth: 100
   curHealth: 0
   panicMultiplier: 1
+  JustSpawned: 1
+  SpawnTooClose: 0
   currentNode: {fileID: 0}
   path: []
   currentState: 0
@@ -162,7 +164,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521980341293213595}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
