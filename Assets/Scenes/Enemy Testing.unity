@@ -160,10 +160,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 158608072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abf66c18090a88e43aa5e5e083926963, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bec320ea5497314d94d842bd2be360e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlacingCannon
-  prefabToPlace: {fileID: 7668819836387800179, guid: 763fdeaad89e539488244499d3a2e961, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::PlacingGrave
+  prefabToPlace: {fileID: 5953580875086391208, guid: 31eb703c2ceb9c44fb86a970d47406ba, type: 3}
   playerTransform: {fileID: 1558054832}
   offset: {x: 1, y: 0, z: 0}
 --- !u!114 &246302323 stripped
@@ -2936,6 +2936,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 249417427997567527, guid: e39daa9b191bb724485f7c200e6a5c91, type: 3}
+      propertyPath: PG
+      value: 
+      objectReference: {fileID: 158608072}
     - target: {fileID: 3740635970085679846, guid: e39daa9b191bb724485f7c200e6a5c91, type: 3}
       propertyPath: tilemap
       value: 
