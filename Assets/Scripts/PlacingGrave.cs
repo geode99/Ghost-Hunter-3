@@ -26,8 +26,8 @@ public class PlacingGrave : MonoBehaviour
                 sr.color = color;
             }
             // Optionally disable any scripts/colliders on the preview
-//            foreach (var c in previewInstance.GetComponents<Grave>())
-  //               c.enabled = false;
+            foreach (var c in previewInstance.GetComponents<Grave>())
+                 c.enabled = false;
         }
     }
 
@@ -43,9 +43,9 @@ public class PlacingGrave : MonoBehaviour
     // Call this to place the actual prefab next to the player
     public void PlacePrefab(InputAction.CallbackContext ctx)
     {
-        if (prefabToPlace != null && playerTransform != null && ctx.started && FindAnyObjectByType<ScoreManager>().coinCount >= 50)
+        if (prefabToPlace != null && playerTransform != null && ctx.started && FindAnyObjectByType<ScoreManager>().coinCount >= 25)
         {
-            FindAnyObjectByType<ScoreManager>().coinCount -= 50;
+            FindAnyObjectByType<ScoreManager>().coinCount -= 25;
             // Destroy the preview before placing the actual prefab
             HidePreviewSprite();
             var cannon = Instantiate(prefabToPlace, playerTransform.position + offset, Quaternion.identity);

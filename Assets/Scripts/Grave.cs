@@ -5,6 +5,7 @@ public class Grave : MonoBehaviour
     public ScoreManager SM;
     public EnemySpawner ES;
     private int wave = 0;
+    public int reward = 5;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,8 +18,9 @@ public class Grave : MonoBehaviour
     {
         if(wave < ES.Rounds)
         {
-            SM.coinCount += 5;
+            SM.coinCount += reward;
             wave = ES.Rounds;
+            reward++;
         }
     }
 }

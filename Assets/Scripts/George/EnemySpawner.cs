@@ -68,7 +68,7 @@ public class EnemySpawner : MonoBehaviour
 
         foreach (Grave grave in FindObjectsByType<Grave>())
         {
-            PopupManager.instance.Popup("+5", grave.transform);
+            PopupManager.instance.Popup("+" + grave.reward , grave.transform);
         }
     }
 }

@@ -166,6 +166,51 @@ MonoBehaviour:
   prefabToPlace: {fileID: 5953580875086391208, guid: 31eb703c2ceb9c44fb86a970d47406ba, type: 3}
   playerTransform: {fileID: 1558054832}
   offset: {x: 1, y: 0, z: 0}
+--- !u!1 &161673838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 161673840}
+  - component: {fileID: 161673839}
+  m_Layer: 0
+  m_Name: PopupManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &161673839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161673838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2855abb266da340aa9aa09bf3f8734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopupManager
+  prefab: {fileID: 3173160094177263783, guid: 828cf105504990f47a51de5bc447cee7, type: 3}
+--- !u!4 &161673840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161673838}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 28.56387, y: 16.50229, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &246302323 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 249417427997567527, guid: e39daa9b191bb724485f7c200e6a5c91, type: 3}
@@ -3087,3 +3132,4 @@ SceneRoots:
   - {fileID: 1553546499}
   - {fileID: 1071727292}
   - {fileID: 2147386588}
+  - {fileID: 161673840}
