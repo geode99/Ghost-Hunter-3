@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank Ghost
       objectReference: {fileID: 0}
+    - target: {fileID: 1703971834463484365, guid: 64c24d818f8062f43998f3d917904b1a, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.81568635
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703971834463484365, guid: 64c24d818f8062f43998f3d917904b1a, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.9960785
+      objectReference: {fileID: 0}
     - target: {fileID: 3010162662086294890, guid: 64c24d818f8062f43998f3d917904b1a, type: 3}
       propertyPath: Health
       value: 10
