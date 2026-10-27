@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NPC_Controller : MonoBehaviour
@@ -6,6 +7,8 @@ public class NPC_Controller : MonoBehaviour
     public int maxHealth = 100;
     public int curHealth;
     public int panicMultiplier = 1;
+    public bool JustSpawned = true;
+    public BoxCollider2D BC2d;
 
 
     public Node currentNode;
@@ -25,12 +28,23 @@ public class NPC_Controller : MonoBehaviour
 
     private void Start()
     {
+        BC2d = GetComponent<BoxCollider2D>();
         curHealth = maxHealth;
         player = FindAnyObjectByType<GridMovement>();
     }
 
     private void Update()
     {
+        if (JustSpawned && Vector2.Distance(transform.position, player.gameObject.transform.position) < 5)
+        {
+
+            currentNode = FindAnyObjectByType<Node>();
+            transform.position = currentNode.transform.position;
+        }
+        else {
+            BC2d.enabled = true;
+            JustSpawned = false;
+        }
         switch (currentState)
         {
             case StateMachine.Patrol:
