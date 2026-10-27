@@ -11,6 +11,7 @@ public class Grave : MonoBehaviour
     {
         SM = FindAnyObjectByType<ScoreManager>();
         ES = FindAnyObjectByType<EnemySpawner>();
+        wave = ES.Rounds;
     }
 
     // Update is called once per frame

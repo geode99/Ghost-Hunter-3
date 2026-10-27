@@ -7,6 +7,7 @@ public class PlacingCannon : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Vector3 offset = new Vector3(1, 0, 0); // Offset from player
     private GameObject previewInstance;
+    private Collider2D[] colliders;
 
     // Call this to show the preview sprite next to the player
     public void ShowPreviewSprite()
@@ -34,13 +35,15 @@ public class PlacingCannon : MonoBehaviour
         if (previewInstance != null && playerTransform != null)
         {
             previewInstance.transform.position = playerTransform.position + offset;
+            colliders = null;
+            colliders = Physics2D.OverlapPointAll(previewInstance.transform.position);
         }
     }
 
     // Call this to place the actual prefab next to the player
     public void PlacePrefab(InputAction.CallbackContext ctx)
     {
-        if (prefabToPlace != null && playerTransform != null && ctx.started && FindAnyObjectByType<ScoreManager>().coinCount >= 50)
+        if (prefabToPlace != null && playerTransform != null && ctx.started && FindAnyObjectByType<ScoreManager>().coinCount >= 50 && CanPlace())
         {
             FindAnyObjectByType<ScoreManager>().coinCount -= 50;
             var previewRot = previewInstance.transform.GetChild(0).transform.rotation;
@@ -57,6 +60,18 @@ public class PlacingCannon : MonoBehaviour
         if(ctx.started && previewInstance != null) {
             previewInstance.transform.GetChild(0).Rotate(0, 0, 90); // Rotate 90 degrees around Z-axis
         }
+    }
+    private bool CanPlace()
+    {
+        foreach (var col in colliders)
+        {
+            if (col.gameObject.CompareTag("placeable") && col.gameObject != previewInstance)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
     // Call this to remove the preview (e.g., after placing)
     public void HidePreviewSprite()

@@ -7,6 +7,7 @@ public class PlacingGrave : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Vector3 offset = new Vector3(1, 0, 0); // Offset from player
     private GameObject previewInstance = null;
+    private Collider2D[] colliders;
 
     // Call this to show the preview sprite next to the player
     public void ShowPreviewSprite()
@@ -25,6 +26,7 @@ public class PlacingGrave : MonoBehaviour
                 color.a = 0.5f;
                 sr.color = color;
             }
+
             // Optionally disable any scripts/colliders on the preview
             foreach (var c in previewInstance.GetComponents<Grave>())
                  c.enabled = false;
@@ -37,14 +39,17 @@ public class PlacingGrave : MonoBehaviour
         if (previewInstance != null && playerTransform != null)
         {
             previewInstance.transform.position = playerTransform.position + offset;
+            colliders = null;
+            colliders = Physics2D.OverlapPointAll(previewInstance.transform.position);
         }
     }
 
     // Call this to place the actual prefab next to the player
     public void PlacePrefab(InputAction.CallbackContext ctx)
     {
-        if (prefabToPlace != null && playerTransform != null && ctx.started && FindAnyObjectByType<ScoreManager>().coinCount >= 25)
+        if (prefabToPlace != null && playerTransform != null && ctx.started && FindAnyObjectByType<ScoreManager>().coinCount >= 25 && CanPlace())
         {
+
             FindAnyObjectByType<ScoreManager>().coinCount -= 25;
             // Destroy the preview before placing the actual prefab
             HidePreviewSprite();
@@ -53,6 +58,20 @@ public class PlacingGrave : MonoBehaviour
             gameObject.SetActive(false); // Disable the placing script after placing
         }
     }
+
+    private bool CanPlace()
+    { 
+        foreach (var col in colliders)
+        {
+            if (col.gameObject.CompareTag("placeable") && col.gameObject != previewInstance)
+            {
+                return false;
+            }
+        }
+    
+        return true;
+    }
+
     // Call this to remove the preview (e.g., after placing)
     public void HidePreviewSprite()
     {

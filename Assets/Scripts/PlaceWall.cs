@@ -40,7 +40,7 @@ public class PlaceWall : MonoBehaviour
     {
         Vector3Int tilePos = GetNextToPlayerTilePosition();
         tilemap.SetTile(tilePos, wallTile);
-
+        FindAnyObjectByType<ScoreManager>().coinCount -= 10;
         // Find the RandomWalkerGenerator in the scene
         var generator = FindAnyObjectByType<RandomWalkerGenerator>();
         if (generator != null)
