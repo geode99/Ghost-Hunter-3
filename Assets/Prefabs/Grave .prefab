@@ -109,6 +109,9 @@ MonoBehaviour:
   SM: {fileID: 0}
   ES: {fileID: 0}
   reward: 5
+  opt1: {fileID: 3627022560159723119, guid: d1428d5bcab07964da4c2320a1ecca76, type: 3}
+  opt2: {fileID: 3623733896943982010, guid: d1428d5bcab07964da4c2320a1ecca76, type: 3}
+  opt3: {fileID: -1208546541, guid: d1428d5bcab07964da4c2320a1ecca76, type: 3}
 --- !u!61 &8545149808102487538
 BoxCollider2D:
   m_ObjectHideFlags: 0
