@@ -6,6 +6,8 @@ public class BuildingManagement : MonoBehaviour
     public GameObject PC;
     public GameObject PW;
     public GameObject PG;
+    public float GraveCost = 25f;
+    public float CannonCost = 50f;
 
     // Assign the cannon prefab in the Inspector
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -60,7 +62,7 @@ public class BuildingManagement : MonoBehaviour
     }
     public void PlaceGrave()
     {
-        if (FindAnyObjectByType<ScoreManager>().coinCount >= 25)
+        if (FindAnyObjectByType<ScoreManager>().coinCount >= GraveCost)
         {
             PW.SetActive(false);
             PC.SetActive(false);
