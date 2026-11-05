@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlacingGrave
   prefabToPlace: {fileID: 5953580875086391208, guid: 31eb703c2ceb9c44fb86a970d47406ba, type: 3}
   playerTransform: {fileID: 1558054832}
-  offset: {x: 0, y: 0, z: 0}
+  distance: 1
 --- !u!1 &161673838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,6 +1691,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6496716932897838108, guid: e39daa9b191bb724485f7c200e6a5c91, type: 3}
   m_PrefabInstance: {fileID: 2083399526}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1558054833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558054831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc501e3140a33d442b8d497409f33211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Placer
 --- !u!1 &1784907333
 GameObject:
   m_ObjectHideFlags: 0
@@ -2254,7 +2266,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6496716932897838108, guid: e39daa9b191bb724485f7c200e6a5c91, type: 3}
       insertIndex: 3
       addedObject: {fileID: 158608073}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5585308723774843108, guid: e39daa9b191bb724485f7c200e6a5c91, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1558054833}
   m_SourcePrefab: {fileID: 100100000, guid: e39daa9b191bb724485f7c200e6a5c91, type: 3}
 --- !u!1 &2147386587
 GameObject:

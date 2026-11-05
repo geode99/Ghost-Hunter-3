@@ -3,22 +3,23 @@ using UnityEngine.Tilemaps;
 
 public class PlaceWall : MonoBehaviour
 {
-    public Transform player; // Assign in Inspector
-    public Tilemap tilemap; // Assign in Inspector
-    public TileBase wallTile; // Assign in Inspector
-    public Sprite previewSprite; // Assign in Inspector
-
+    public Transform player;
+    public Tilemap tilemap;
+    public TileBase wallTile;
+    public Sprite previewSprite;
     public GameObject previewObject;
+
+   public placer facing;
 
     void Start()
     {
-        // Create the preview object
+        facing = player.GetComponent<placer>();
         previewObject = new GameObject("TilePreview");
         var sr = previewObject.AddComponent<SpriteRenderer>();
         sr.sprite = previewSprite;
-        sr.color = new Color(1, 1, 1, 0.5f); // semi-transparent
-        sr.sortingOrder = 10; // Ensure it's on top of other sprites
-        gameObject.SetActive(false); // Hide the preview initially
+        sr.color = new Color(1, 1, 1, 0.5f);
+        sr.sortingOrder = 10;
+        gameObject.SetActive(false);
     }
 
     void Update()
@@ -26,30 +27,27 @@ public class PlaceWall : MonoBehaviour
         ShowPreviewNextToPlayer();
     }
 
-    // Shows the preview sprite next to the player
     public void ShowPreviewNextToPlayer()
     {
+        if (previewObject == null) return;
         previewObject.SetActive(true);
-        Vector3Int tilePos = GetNextToPlayerTilePosition();
-        Vector3 worldPos = tilemap.GetCellCenterWorld(tilePos);
-        previewObject.transform.position = worldPos;
+        previewObject.transform.position = tilemap.GetCellCenterWorld(GetTargetTile());
     }
 
-    // Places the tile on the tilemap at the preview position
     public void PlaceTileNextToPlayer()
     {
-        Vector3Int tilePos = GetNextToPlayerTilePosition();
+        Vector3Int tilePos = GetTargetTile();
         tilemap.SetTile(tilePos, wallTile);
         FindAnyObjectByType<ScoreManager>().coinCount -= 10;
-        // Find the RandomWalkerGenerator in the scene
+
         var generator = FindAnyObjectByType<RandomWalkerGenerator>();
         if (generator != null)
         {
-            // Find the node at this position (nodes are placed at x+0.5, y+0.5)
             Node nodeToRemove = null;
+            Vector2 nodePos = new Vector2(tilePos.x + 0.5f, tilePos.y + 0.5f);
             foreach (var node in generator.nodeList)
             {
-                if (Vector2.Distance(node.transform.position, new Vector2(tilePos.x + 0.5f, tilePos.y + 0.5f)) < 0.1f)
+                if (Vector2.Distance(node.transform.position, nodePos) < 0.1f)
                 {
                     nodeToRemove = node;
                     break;
@@ -58,51 +56,34 @@ public class PlaceWall : MonoBehaviour
             if (nodeToRemove != null)
             {
                 generator.nodeList.Remove(nodeToRemove);
-
-                // Remove all connections to the deleted node
-                generator.CreateConnections(); // Recreate connections after removing the node
-
+                generator.CreateConnections();
                 foreach (var npc in FindObjectsByType<NPC_Controller>())
-                {
-                    npc.path.Clear(); // Clear paths for all NPCs
-                }
+                    npc.path.Clear();
                 Destroy(nodeToRemove.gameObject);
             }
         }
 
-        // Also destroy any "node(Clone)" with a collider at this position (optional, for safety)
         Vector3 worldPos = tilemap.GetCellCenterWorld(tilePos);
-        Collider2D[] colliders = Physics2D.OverlapPointAll(worldPos);
-        foreach (var col in colliders)
+        foreach (var col in Physics2D.OverlapPointAll(worldPos))
         {
             if (col.gameObject.name == "node(Clone)")
-            {
                 Destroy(col.gameObject);
-            }
         }
 
-        // Remove preview and disable this GameObject
         RemovePreviewAndDisable();
     }
 
-    // Removes the preview object and disables this GameObject
     public void RemovePreviewAndDisable()
     {
         if (previewObject != null)
-        {
             previewObject.SetActive(false);
-        }
         gameObject.SetActive(false);
     }
 
-    // Helper: Gets the tile position next to the player (e.g., to the right)
-    Vector3Int GetNextToPlayerTilePosition()
+    Vector3Int GetTargetTile()
     {
-        Vector3 playerPos = player.position;
-        Vector3Int playerTile = tilemap.WorldToCell(playerPos);
-
-        // Example: always to the right of the player
-        Vector3Int nextTile = playerTile + Vector3Int.right;
-        return nextTile;
+        Vector3Int playerTile = tilemap.WorldToCell(player.position);
+        Vector2Int dir = facing != null ? facing.Direction : Vector2Int.right;
+        return playerTile + new Vector3Int(dir.x, dir.y, 0);
     }
 }
