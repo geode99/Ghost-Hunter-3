@@ -7,11 +7,12 @@ TagManager:
   - Wall
   - Enemy
   - placeable
+  - Node
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Obstacles

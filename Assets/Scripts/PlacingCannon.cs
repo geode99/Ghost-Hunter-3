@@ -71,7 +71,7 @@ public class PlacingCannon : MonoBehaviour
     {
         foreach (var col in colliders)
         {
-            if (col.gameObject.CompareTag("placeable") && col.gameObject != previewInstance)
+            if (col.gameObject.CompareTag("placeable") && col.gameObject.CompareTag("Wall") && col.gameObject != previewInstance)
                 return false;
         }
         return true;

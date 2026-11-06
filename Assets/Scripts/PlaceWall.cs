@@ -8,8 +8,9 @@ public class PlaceWall : MonoBehaviour
     public TileBase wallTile;
     public Sprite previewSprite;
     public GameObject previewObject;
+    private Collider2D[] colliders = new Collider2D[0];
 
-   public placer facing;
+    public placer facing;
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class PlaceWall : MonoBehaviour
     void Update()
     {
         ShowPreviewNextToPlayer();
+        colliders = Physics2D.OverlapPointAll(previewObject.transform.position);
     }
 
     public void ShowPreviewNextToPlayer()
@@ -36,39 +38,48 @@ public class PlaceWall : MonoBehaviour
 
     public void PlaceTileNextToPlayer()
     {
-        Vector3Int tilePos = GetTargetTile();
-        tilemap.SetTile(tilePos, wallTile);
-        FindAnyObjectByType<ScoreManager>().coinCount -= 10;
 
-        var generator = FindAnyObjectByType<RandomWalkerGenerator>();
-        if (generator != null)
+        foreach (var col in colliders)
         {
-            Node nodeToRemove = null;
-            Vector2 nodePos = new Vector2(tilePos.x + 0.5f, tilePos.y + 0.5f);
-            foreach (var node in generator.nodeList)
+            if (col.gameObject.CompareTag("Node"))
             {
-                if (Vector2.Distance(node.transform.position, nodePos) < 0.1f)
+                Vector3Int tilePos = GetTargetTile();
+                tilemap.SetTile(tilePos, wallTile);
+                FindAnyObjectByType<ScoreManager>().coinCount -= 10;
+
+                var generator = FindAnyObjectByType<RandomWalkerGenerator>();
+                if (generator != null)
                 {
-                    nodeToRemove = node;
-                    break;
+                    Node nodeToRemove = null;
+                    Vector2 nodePos = new Vector2(tilePos.x + 0.5f, tilePos.y + 0.5f);
+                    foreach (var node in generator.nodeList)
+                    {
+                        if (Vector2.Distance(node.transform.position, nodePos) < 0.1f)
+                        {
+                            nodeToRemove = node;
+                            break;
+                        }
+                    }
+                    if (nodeToRemove != null)
+                    {
+                        generator.nodeList.Remove(nodeToRemove);
+                        generator.CreateConnections();
+                        foreach (var npc in FindObjectsByType<NPC_Controller>())
+                            npc.path.Clear();
+                        Destroy(nodeToRemove.gameObject);
+                    }
+                }
+
+                Vector3 worldPos = tilemap.GetCellCenterWorld(tilePos);
+                foreach (var cols in Physics2D.OverlapPointAll(worldPos))
+                {
+                    if (cols.gameObject.name == "node(Clone)")
+                        Destroy(cols.gameObject);
                 }
             }
-            if (nodeToRemove != null)
-            {
-                generator.nodeList.Remove(nodeToRemove);
-                generator.CreateConnections();
-                foreach (var npc in FindObjectsByType<NPC_Controller>())
-                    npc.path.Clear();
-                Destroy(nodeToRemove.gameObject);
-            }
+
         }
 
-        Vector3 worldPos = tilemap.GetCellCenterWorld(tilePos);
-        foreach (var col in Physics2D.OverlapPointAll(worldPos))
-        {
-            if (col.gameObject.name == "node(Clone)")
-                Destroy(col.gameObject);
-        }
 
         RemovePreviewAndDisable();
     }
@@ -85,5 +96,6 @@ public class PlaceWall : MonoBehaviour
         Vector3Int playerTile = tilemap.WorldToCell(player.position);
         Vector2Int dir = facing != null ? facing.Direction : Vector2Int.right;
         return playerTile + new Vector3Int(dir.x, dir.y, 0);
+
     }
 }
