@@ -77,9 +77,8 @@ public class Delete : MonoBehaviour
         RemovePreviewAndDisable();
     }
 
-    public void checkSurroundingsForWalls(Collider2D collision)
+    public void checkSurroundingsForWalls()
     {
-
     }
 
     public void RemovePreviewAndDisable()
