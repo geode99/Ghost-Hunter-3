@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BuildingManagement, Assembly-CSharp
-        m_MethodName: PlaceWall
+        m_MethodName: PlaceDelete
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -198,7 +198,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite index=0>10
+  m_text: 'Delete
+
+    cost: 10'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6aa9b6baf54f6384594825c3f5402fd7, type: 2}
   m_sharedMaterial: {fileID: 76007116949198795, guid: 6aa9b6baf54f6384594825c3f5402fd7, type: 2}

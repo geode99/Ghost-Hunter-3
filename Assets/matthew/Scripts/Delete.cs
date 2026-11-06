@@ -42,6 +42,7 @@ public class Delete : MonoBehaviour
         Vector3Int tilePos = GetTargetTile();
         tilemapFloor.SetTile(tilePos, floorTile);
         tilemap.SetTile(tilePos, null);
+        checkSurroundingsForWalls();
         FindAnyObjectByType<ScoreManager>().coinCount -= 10;
 
         var generator = FindAnyObjectByType<RandomWalkerGenerator>();
@@ -74,6 +75,11 @@ public class Delete : MonoBehaviour
         generator.CreateConnections();
 
         RemovePreviewAndDisable();
+    }
+
+    public void checkSurroundingsForWalls(Collider2D collision)
+    {
+
     }
 
     public void RemovePreviewAndDisable()
