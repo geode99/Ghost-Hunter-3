@@ -12,6 +12,10 @@ public class Delete : MonoBehaviour
     public GameObject previewObject;
     public Node node;
 
+    Vector3Int tilePos;
+
+    Vector3 worldPos;
+
     public placer facing;
 
     void Start()
@@ -79,6 +83,31 @@ public class Delete : MonoBehaviour
 
     public void checkSurroundingsForWalls()
     {
+        var colliders = Physics2D.OverlapPointAll(previewObject.transform.position + Vector3.right);
+        colliders = null;
+        if (colliders == null)
+        {
+            Vector3Int newTilePos = Vector3Int.RoundToInt(previewObject.transform.position);
+            tilemap.SetTile(newTilePos, wallTile);
+        }
+        //colliders = Physics2D.OverlapPointAll(previewObject.transform.position + Vector3.left);
+        //if (colliders == null)
+        //{
+        //    Vector3Int newTilePos = Vector3Int.RoundToInt(previewObject.transform.position + Vector3.left);
+        //    tilemap.SetTile(newTilePos, wallTile);
+        //}
+        //colliders = Physics2D.OverlapPointAll(previewObject.transform.position + Vector3.up);
+        //if (colliders == null)
+        //{
+        //    Vector3Int newTilePos = Vector3Int.RoundToInt(previewObject.transform.position + Vector3.up);
+        //    tilemap.SetTile(newTilePos, wallTile);
+        //}
+        //colliders = Physics2D.OverlapPointAll(previewObject.transform.position + Vector3.down);
+        //if (colliders == null)
+        //{
+        //    Vector3Int newTilePos = Vector3Int.RoundToInt(previewObject.transform.position + Vector3.down);
+        //    tilemap.SetTile(newTilePos, wallTile);
+        //}
     }
 
     public void RemovePreviewAndDisable()
